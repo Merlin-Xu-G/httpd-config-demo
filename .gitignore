@@ -1,4 +1,5 @@
-terraform/.terraform
-terraform/out.plan
-terraform/*.tfstate*
-terraform/.terraform.lock.hcl
+*/.terraform
+*/out.plan
+*/*.tfstate*
+*/.terraform.lock.hcl
+*/state.config
