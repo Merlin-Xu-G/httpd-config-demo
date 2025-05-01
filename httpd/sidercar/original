@@ -1,0 +1,12 @@
+sudo mkdir -p /media/http-config-file
+if [ ! -d "/etc/smbcredentials" ]; then
+sudo mkdir /etc/smbcredentials
+fi
+if [ ! -f "/etc/smbcredentials/httpconfig.cred" ]; then
+    sudo bash -c 'echo "username=httpconfig" >> /etc/smbcredentials/httpconfig.cred'
+    sudo bash -c 'echo "password=oLdDlY9JOJ88tcZBSpVPQD76giCN3N15Vn+EwXHikMiYNMsl9mQzt53ZBNWZ8FqZSkf3ZEiw1S2y+AStFIeYqw==" >> /etc/smbcredentials/httpconfig.cred'
+fi
+sudo chmod 600 /etc/smbcredentials/httpconfig.cred
+
+sudo bash -c 'echo "//httpconfig.file.core.windows.net/http-config-file /media/http-config-file cifs nofail,credentials=/etc/smbcredentials/httpconfig.cred,dir_mode=0755,file_mode=0755,serverino,nosharesock,mfsymlinks,actimeo=30" >> /etc/fstab'
+sudo mount -t cifs //httpconfig.file.core.windows.net/http-config-file /media/http-config-file -o credentials=/etc/smbcredentials/httpconfig.cred,dir_mode=0755,file_mode=0755,serverino,nosharesock,mfsymlinks,actimeo=30

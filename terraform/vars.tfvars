@@ -1,9 +1,11 @@
 azAccountInfo = {
   tenantId       = "84f1e4ea-8554-43e1-8709-f0b8589ea118"
-  subscriptionId = "2213e8b1-dbc7-4d54-8aff-b5e315df5e5b"
+  subscriptionId = "9734ed68-621d-47ed-babd-269110dbacb1"
 }
 
 rg = {
-  "name"     = "1-66f202e5-playground-sandbox"
-  "location" = "East US"
+  "name"     = "1-240fd482-playground-sandbox"
+  "location" = "South Central US"
 }
+
+useExternalConfig = true

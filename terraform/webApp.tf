@@ -4,7 +4,7 @@ resource "azurerm_service_plan" "httpddemoServicePlan" {
   location            = var.rg.location
   os_type             = "Linux"
   sku_name            = "B2"
-  worker_count        = 3
+  worker_count        = 1
 }
 
 resource "azurerm_linux_web_app" "httpddemoWebApp" {
@@ -26,12 +26,32 @@ resource "azurerm_linux_web_app" "httpddemoWebApp" {
     }
   }
 
-  storage_account {
-    name         = "http-demo-config"
-    account_name = azurerm_storage_account.httpconfigStorageAccount.name
-    mount_path   = "/usr/local/apache2/conf/redirect"
-    share_name   = azurerm_storage_share.httpconfigStorageShare.name
-    access_key   = azurerm_storage_account.httpconfigStorageAccount.primary_access_key
-    type         = "AzureFiles"
+  # dynamic "storage_account" {
+  #   for_each = var.useExternalConfig ? toset(["external_config"]) : []
+
+  #   content {
+  #     name         = "http-demo-config"
+  #     account_name = azurerm_storage_account.httpconfigStorageAccount[0].name
+  #     mount_path   = "/usr/local/apache2/conf/redirect"
+  #     share_name   = azurerm_storage_share.httpconfigStorageShare[0].name
+  #     access_key   = azurerm_storage_account.httpconfigStorageAccount[0].primary_access_key
+  #     type         = "AzureFiles"
+  #   }
+  # }
+
+  logs {
+    detailed_error_messages = false
+    failed_request_tracing  = false
+
+    http_logs {
+      file_system {
+        retention_in_days = 7
+        retention_in_mb   = 35
+      }
+    }
+  }
+
+  app_settings = {
+    WEBAPP_STORAGE_HOME = "/home"
   }
 }
