@@ -3,7 +3,7 @@ resource "azurerm_service_plan" "httpddemoServicePlan" {
   resource_group_name = var.rg.name
   location            = var.rg.location
   os_type             = "Linux"
-  sku_name            = "B2"
+  sku_name            = "B3"
   worker_count        = 1
 }
 
@@ -32,7 +32,7 @@ resource "azurerm_linux_web_app" "httpddemoWebApp" {
   #   content {
   #     name         = "http-demo-config"
   #     account_name = azurerm_storage_account.httpconfigStorageAccount[0].name
-  #     mount_path   = "/usr/local/apache2/conf/redirect"
+  #     mount_path   = "/home/config"
   #     share_name   = azurerm_storage_share.httpconfigStorageShare[0].name
   #     access_key   = azurerm_storage_account.httpconfigStorageAccount[0].primary_access_key
   #     type         = "AzureFiles"
@@ -52,6 +52,8 @@ resource "azurerm_linux_web_app" "httpddemoWebApp" {
   }
 
   app_settings = {
-    WEBAPP_STORAGE_HOME = "/home"
+  #   WEBAPP_STORAGE_HOME = "/home"
+  #   WEBSITES_ENABLE_APP_SERVICE_STORAGE = "TRUE"
+      ASC_KEY = azurerm_storage_account.httpconfigStorageAccount.primary_access_key
   }
 }

@@ -3,23 +3,18 @@ version: "3"
 services:
   external-config:
     container_name: hec
-    image: merlintestcontainerregistry1.azurecr.io/testsamba:9
-    cap_add:
-      - SYS_ADMIN
-      - DAC_READ_SEARCH
-    ports:
-      - 2222:2222
+    image: merlintestcontainerregistry1.azurecr.io/testsamba:4
+    environment:
+      - ASC_KEY=${ASC_KEY}
     volumes:
-      - redirect-set-mount:/opt/http-config-file-mount
-      - redirect-set-local:/opt/http-config-file-local
+      - redirect-set:/opt/conf
   httpd:
     container_name: hd
     image: merlintestcontainerregistry1.azurecr.io/httpd-demo:3
     ports:
       - "80:80"
     volumes:
-      - redirect-set-local:/usr/local/apache2/conf/redirect
+      - redirect-set:/usr/local/apache2/conf/redirect
 
 volumes:
-  redirect-set-local:
-  redirect-set-mount:
+  redirect-set:

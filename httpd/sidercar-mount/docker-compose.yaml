@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  external-config:
+    container_name: hec
+    image: merlintestcontainerregistry1.azurecr.io/testsamba:3
+    cap_add:
+      - SYS_ADMIN
+      - DAC_READ_SEARCH
+    ports:
+      - 2222:2222
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/config:/opt/http-config-file-mount
+      - ${WEBAPP_STORAGE_HOME}/config-local:/opt/http-config-file-local
+  httpd:
+    container_name: hd
+    image: merlintestcontainerregistry1.azurecr.io/httpd-demo:1
+    ports:
+      - "80:80"
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/config-local:/usr/local/apache2/conf/redirect

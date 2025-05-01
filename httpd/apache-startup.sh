@@ -1,12 +1,12 @@
 #!/bin/bash
-# while [ ! -e  "/usr/local/apache2/conf/redirect/redirect.conf" ]
-# do
-#   ls -al /usr/local/apache2/conf/redirect
-#   echo "Waiting for config ready"
-#   sleep 1m
-# done
-sleep 1m
-echo "config ready"
+echo "Http start"
+rm -rf /usr/local/apache2/conf/redirect/redirect.conf
+while [ ! -e  "/usr/local/apache2/conf/redirect/redirect.conf" ]
+do
+  echo "Waiting for config ready"
+  ls -al /usr/local/apache2/conf/redirect
+  sleep 10s
+done
+echo "config is ready, starting the server"
 ls -al /usr/local/apache2/conf/redirect
-cat /usr/local/apache2/conf/redirect/redirect.conf
-exec httpd-foreground
+/usr/local/bin/httpd-foreground
