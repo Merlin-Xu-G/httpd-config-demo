@@ -3,11 +3,17 @@ version: "3"
 services:
   external-config:
     container_name: hec
-    image: merlintestcontainerregistry1.azurecr.io/testsamba:4
+    image: merlintestcontainerregistry1.azurecr.io/testsamba:3
     environment:
+      - ASC_URL=${ASC_URL}
+      - ASC_USERNAME=${ASC_USERNAME}
       - ASC_KEY=${ASC_KEY}
+      - REDIRECT_SET_FILE_NAME=redirect.conf
+
     volumes:
       - redirect-set:/opt/conf
+    # env_file:
+    #   - ./local.env
   httpd:
     container_name: hd
     image: merlintestcontainerregistry1.azurecr.io/httpd-demo:3
@@ -18,3 +24,4 @@ services:
 
 volumes:
   redirect-set:
+  

@@ -54,6 +54,8 @@ resource "azurerm_linux_web_app" "httpddemoWebApp" {
   app_settings = {
   #   WEBAPP_STORAGE_HOME = "/home"
   #   WEBSITES_ENABLE_APP_SERVICE_STORAGE = "TRUE"
-      ASC_KEY = azurerm_storage_account.httpconfigStorageAccount.primary_access_key
+      ASC_URL = azurerm_storage_share.httpconfigStorageShare[0].url
+      ASC_KEY = azurerm_storage_account.httpconfigStorageAccount[0].primary_access_key
+      ASC_USERNAME = azurerm_storage_account.httpconfigStorageAccount[0].name
   }
 }

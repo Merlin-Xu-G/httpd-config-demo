@@ -9,7 +9,7 @@ mkdir /etc/smbcredentials
 fi
 if [ ! -f "/etc/smbcredentials/httpconfig.cred" ]; then
     bash -c 'echo "username=httpconfig" >> /etc/smbcredentials/httpconfig.cred'
-    bash -c 'echo "password=oLdDlY9JOJ88tcZBSpVPQD76giCN3N15Vn+EwXHikMiYNMsl9mQzt53ZBNWZ8FqZSkf3ZEiw1S2y+AStFIeYqw==" >> /etc/smbcredentials/httpconfig.cred'
+    bash -c 'echo "password=" >> /etc/smbcredentials/httpconfig.cred'
 fi
 chmod 600 /etc/smbcredentials/httpconfig.cred
 
